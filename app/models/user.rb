@@ -23,10 +23,7 @@
 class User < ApplicationRecord
   validates(:username, presence: true)
   validates(:username, uniqueness: true)
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  
   has_many  :likes, class_name: "Like", foreign_key: "fan_id", dependent: :destroy
   has_many  :comments, class_name: "Comment", foreign_key: "author_id", dependent: :destroy
   has_many  :own_photos, class_name: "Photo", foreign_key: "owner_id", dependent: :destroy
@@ -38,4 +35,9 @@ class User < ApplicationRecord
   has_many :liked_photos, through: :likes, source: :photo
   has_many :feed, through: :following, source: :own_photos
   has_many :activity, through: :following, source: :liked_photos
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 end
