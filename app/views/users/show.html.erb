@@ -12,14 +12,47 @@
     Followers
   </dt>
   <dd>
-    <form action="/update_user/<%= @the_user.id %>" method="post">
-      <label for="browser_username">Username</label>
-      <input id="browser_username" type="text" name="input_username" value=<%= @the_user.username %>>
+    <div><%= @the_user.followers.count %></div>
+    <% if @followrequest %>
+      <form action="/delete_follow_request" method="post">
+        <label for="unfollow_user"></label>
+        <input type="hidden" name="query_recipient_id" id="unfollow_user" value="<%= @user.id %>">
+        <button>Unfollow</button>
+      </form>
+    <% else %>
+      <form action="/insert_follow_request" method="post">
+        <label for="like_user"></label>
+        <input type="hidden" name="query_recipient_id" id="like_user" value="<%= @user.id %>">
+        <button>Follow</button>
+      </form>
+    <% end %>
+  </dd>
 
-      <button>Update user</button>
-    </form>
+  <dt>
+    Following
+  </dt>
+  <dd>
+    <%= @the_user.following.count %>
   </dd>
 </dl>
+
+<ul>
+  <li>
+    <a href="/users/<%= @the_user.username %>">Profile</a>
+  </li>
+
+  <li>
+    <a href="/users/<%= @the_user.username %>/liked_photos">Liked photos</a>
+  </li>
+
+  <li>
+    <a href="/users/<%= @the_user.username %>/feed">Feed</a>
+  </li>
+
+  <li>
+    <a href="/users/<%= @the_user.username %>/discover">Discover page</a>
+  </li>
+</ul>
 
 <h2>Own photos (<%= @the_user.own_photos.count %>)</h2>
 
@@ -42,6 +75,7 @@
     </th>
 
     <th>
+      Likes
     </th>
   </tr>
 
@@ -53,7 +87,7 @@
       </td>
 
       <td>
-        <%= a_photo.poster.username %>
+        <%= a_photo.owner.username %>
       </td>
 
       <td>
@@ -62,6 +96,10 @@
 
       <td>
         <%= a_photo.created_at %>
+      </td>
+
+      <td>
+        <%= a_photo.likes.count %>
       </td>
 
       <td>
