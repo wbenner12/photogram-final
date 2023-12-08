@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
+  root "users#index"
+  
+  get("/users", { :controller => "users", :action => "index" })
+  get("/users/:username", controller: "users", action: "show")
   # Routes for the Photo resource:
 
   # CREATE
