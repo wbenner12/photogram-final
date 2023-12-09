@@ -15,15 +15,6 @@ class PhotosController < ApplicationController
 
     @the_photo = matching_photos.at(0)
 
-    @fans = @the_photo.fans
-
-    @comments = @the_photo.comments
-
-    matching_likes = Like.where({ :fan_id => current_user.id, :photo_id => @the_photo.id })
-    the_like = matching_likes.at(0)
-
-    @liked = the_like.present?
-
     render({ :template => "photos/show" })
   end
 
