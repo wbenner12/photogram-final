@@ -13,13 +13,7 @@
     </th>
 
     <th>
-      
     </th>
-
-    <th>
-      
-    </th>
-
   </tr>
 
   <% @list_of_users.each do |a_user| %>
@@ -29,32 +23,16 @@
         <%= a_user.username %>
       </td>
 
-      <th>
-        <% if a_user.fetch('private') != true %>
-          No
-        <% else %>
+      <td>
+        <% if a_user.private? %>
           Yes
+        <% else %>
+          No
         <% end %>
-      </th>
-      
-      <% if current_user != nil %>
-        <td>
-          <form action="/insert_follow_request" method="post">
-            <label for="recipient"></label>
-            <input type="text" name="query_recipient_id" id="recipient" value="<%= a_user.id%>">
-
-            <button>Follow</button>
-          </form >
-        </td>
-      <% else %>
-        <td>
-        </td>
-      <% end %>
+      </td>
 
       <td>
-        <a href="/users/<%= a_user.username %>">
-          Show details
-        </a>
+        <a href="/users/<%= a_user.username %>">Show details</a>
       </td>
     </tr>
   <% end %>

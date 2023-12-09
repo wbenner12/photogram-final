@@ -13,9 +13,9 @@
       <li>
         <a href="/photos">All public photos</a>
       </li>
-      <% if current_user != nil %>
+      <% if current_user.present %>
         <li>
-          <a href="/users/edit">Edit</a>
+          <a href="/users/edit"><%= current_user.username %></a>
         </li>
         <li>
           <a href="/users/sign_out">Sign out</a>
