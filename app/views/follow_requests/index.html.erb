@@ -32,6 +32,14 @@
       </div>
 
       <div>
+        <label for="password_box">
+          Password
+        </label>
+
+        <input type="text" id="password_box" name="query_password">
+      </div>
+      
+      <div>
         <label for="status_box">
           Status
         </label>
@@ -64,6 +72,10 @@
         </th>
 
         <th>
+          Password
+        </th>
+        
+        <th>
           Status
         </th>
 
@@ -91,6 +103,10 @@
 
         <td>
           <%= a_follow_request.sender_id %>
+        </td>
+
+        <td>
+          <%= a_follow_request.password %>
         </td>
 
         <td>
