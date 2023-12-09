@@ -2,7 +2,8 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
-
+gem "carrierwave"
+gem "cloudinary"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
@@ -83,6 +84,7 @@ gem "http"
 gem "sqlite3", "~> 1.4"
 gem "table_print"
 gem "simple_form" # necessary for devise view templates
+
 
 group :development do
   gem "annotate"
