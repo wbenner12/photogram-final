@@ -12,7 +12,8 @@
 #  owner_id       :integer
 #
 class Photo < ApplicationRecord
-  validates(:poster, { :presence => true })
+  validates(:owner_id, presence: true)
+  validates(:image, presence: true)
   
   belongs_to(:owner, required: true, class_name: "User", foreign_key: "owner_id")
   has_many(:likes, class_name: "Like", foreign_key: "photo_id", dependent: :destroy)
