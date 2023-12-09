@@ -20,17 +20,17 @@
 
     <dl>
       <dt>
-        Author
-      </dt>
-      <dd>
-        <%= @the_comment.author_id %>
-      </dd>
-
-      <dt>
         Body
       </dt>
       <dd>
         <%= @the_comment.body %>
+      </dd>
+
+      <dt>
+        Author
+      </dt>
+      <dd>
+        <%= @the_comment.author_id %>
       </dd>
 
       <dt>
@@ -68,19 +68,19 @@
 
     <form action="/modify_comment/<%= @the_comment.id %>"  method="post" >
       <div>
-        <label for="author_id_box">
-          Author
-        </label>
-
-        <input type="text" id="author_id_box" name="query_author_id" value="<%= @the_comment.author_id %>">
-      </div>
-
-      <div>
         <label for="body_box">
           Body
         </label>
 
         <textarea id="body_box" name="query_body"><%= @the_comment.body %></textarea>
+      </div>
+
+      <div>
+        <label for="commenter_id_box">
+          Author
+        </label>
+
+        <input type="text" id="commenter_id_box" name="query_commenter_id" value="<%= @the_comment.author_id %>">
       </div>
 
       <div>
