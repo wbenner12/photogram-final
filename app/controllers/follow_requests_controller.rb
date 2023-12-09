@@ -25,9 +25,9 @@ class FollowRequestsController < ApplicationController
 
     if the_follow_request.valid?
       the_follow_request.save
-      redirect_to("/follow_requests", { :notice => "Follow request created successfully." })
+      redirect_to("/users/#{the_follow_request.recipient.username}", { :notice => "Follow request created successfully." })
     else
-      redirect_to("/follow_requests", { :alert => the_follow_request.errors.full_messages.to_sentence })
+      redirect_to("/users/#{the_follow_request.recipient.username}", { :alert => the_follow_request.errors.full_messages.to_sentence })
     end
   end
 
@@ -41,9 +41,9 @@ class FollowRequestsController < ApplicationController
 
     if the_follow_request.valid?
       the_follow_request.save
-      redirect_to("/follow_requests/#{the_follow_request.id}", { :notice => "Follow request updated successfully."} )
+      redirect_to("/users/#{the_follow_request.recipient.username}", { :notice => "Follow request updated successfully."} )
     else
-      redirect_to("/follow_requests/#{the_follow_request.id}", { :alert => the_follow_request.errors.full_messages.to_sentence })
+      redirect_to("/users/#{the_follow_request.recipient.username}", { :alert => the_follow_request.errors.full_messages.to_sentence })
     end
   end
 
@@ -53,6 +53,6 @@ class FollowRequestsController < ApplicationController
 
     the_follow_request.destroy
 
-    redirect_to("/follow_requests", { :notice => "Follow request deleted successfully."} )
+    redirect_to("/users/#{the_follow_request.recipient.username}", { :notice => "Follow request deleted successfully."} )
   end
 end

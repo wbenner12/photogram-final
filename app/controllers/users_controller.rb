@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action(:authenticate_user!, { :only => [:index] }) 
+  
   def index
     matching_users = User.all
 
@@ -9,55 +10,33 @@ class UsersController < ApplicationController
   end
   
   def show
-    the_id = params.fetch("username")
+    the_username = params.fetch("username")
+    @the_user = User.where({ :username => the_username }).first
 
-    matching_users = User.where({ :id => the_id })
+    follow_request = FollowRequest.where(sender_id: current_user.id, recipient_id: @the_user.id).first
 
-    @the_user = matching_users.at(0)
-
-    render({ :template => "users/show" })
-  end
-
-  def create
-    the_photo = Photo.new
-    the_photo.caption = params.fetch("query_caption")
-    the_photo.comments_count = params.fetch("query_comments_count")
-    the_photo.image = params.fetch("query_image")
-    the_photo.likes_count = params.fetch("query_likes_count")
-    the_photo.owner_id = params.fetch("query_owner_id")
-
-    if the_photo.valid?
-      the_photo.save
-      redirect_to("/photos", { :notice => "Photo created successfully." })
+    if (follow_request.present? && follow_request.status == "accepted" ) || @the_user.id == current_user.id
+      render({ :template => "users/show" })
     else
-      redirect_to("/photos", { :alert => the_photo.errors.full_messages.to_sentence })
+      redirect_to("/", { :alert => "You can't do that" })
     end
   end
 
-  def update
-    the_id = params.fetch("path_id")
-    the_photo = Photo.where({ :id => the_id }).at(0)
-
-    the_photo.caption = params.fetch("query_caption")
-    the_photo.comments_count = params.fetch("query_comments_count")
-    the_photo.image = params.fetch("query_image")
-    the_photo.likes_count = params.fetch("query_likes_count")
-    the_photo.owner_id = params.fetch("query_owner_id")
-
-    if the_photo.valid?
-      the_photo.save
-      redirect_to("/photos/#{the_photo.id}", { :notice => "Photo updated successfully."} )
-    else
-      redirect_to("/photos/#{the_photo.id}", { :alert => the_photo.errors.full_messages.to_sentence })
-    end
+  def liked_photos
+    the_username = params.fetch("username")
+    @the_user = User.where({ :username => the_username }).first
+    render({ :template => "users/liked_photos" })
   end
-
-  def destroy
-    the_id = params.fetch("path_id")
-    the_photo = Photo.where({ :id => the_id }).at(0)
-
-    the_photo.destroy
-
-    redirect_to("/photos", { :notice => "Photo deleted successfully."} )
+  
+  def feed
+    the_username = params.fetch("username")
+    @the_user = User.where({ :username => the_username }).first
+    render({ :template => "users/feed" })
+  end
+  
+  def discover
+    the_username = params.fetch("username")
+    @the_user = User.where({ :username => the_username }).first
+    render({ :template => "users/discover" })
   end
 end
