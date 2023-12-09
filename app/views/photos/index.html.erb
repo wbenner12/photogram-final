@@ -9,7 +9,6 @@
 <hr>
 
 <div>
-  <div>
   <% if current_user != nil %>
     <form action="/insert_photo" method="post" class="form-horizontal">
       <label for="image_box">
@@ -29,7 +28,8 @@
         Add photo
       </button>
     </form>
-  </div>
+  <% else %>
+  <% end %>
 </div>
 
 <div>
